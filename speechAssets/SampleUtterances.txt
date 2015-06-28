@@ -1,0 +1,6 @@
+MeanAlexa insult {cody|name}
+NiceAlexa motivate {cody|name}
+
+HelpIntent help
+HelpIntent help me
+HelpIntent wat

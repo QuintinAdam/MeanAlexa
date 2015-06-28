@@ -1,0 +1,26 @@
+{
+  "intents": [
+    {
+      "intent": "MeanAlexa",
+      "slots": [
+        {
+          "name": "Name",
+          "type": "LITERAL"
+        }
+      ]
+    },
+    {
+      "intent": "NiceAlexa",
+      "slots": [
+        {
+          "name": "Name",
+          "type": "LITERAL"
+        }
+      ]
+    },
+    {
+      "intent": "HelpIntent",
+      "slots": []
+    }
+  ]
+}
