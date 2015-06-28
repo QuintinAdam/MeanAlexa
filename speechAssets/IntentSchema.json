@@ -1,19 +1,19 @@
 {
   "intents": [
     {
-      "intent": "MeanAlexa",
+      "intent": "MeanAlexaIntent",
       "slots": [
         {
-          "name": "Name",
+          "name": "PersonName",
           "type": "LITERAL"
         }
       ]
     },
     {
-      "intent": "NiceAlexa",
+      "intent": "NiceAlexaIntent",
       "slots": [
         {
-          "name": "Name",
+          "name": "PersonName",
           "type": "LITERAL"
         }
       ]
