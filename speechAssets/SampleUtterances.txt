@@ -1,5 +1,5 @@
-MeanAlexa insult {cody|name}
-NiceAlexa motivate {cody|name}
+MeanAlexaIntent insult {cody|PersonName}
+NiceAlexaIntent motivate {cody|PersonName}
 
 HelpIntent help
 HelpIntent help me
