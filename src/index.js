@@ -1,3 +1,4 @@
+// When adding to lambda add both the code in alexSkill and this file. comment out lines var AlexSkill = require, and module.import = AlexSkill
 // Alexa SDK for JavaScript v1.0.00
 // Copyright (c) 2014-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved. Use is subject to license terms.
 
@@ -14,12 +15,12 @@
 /**
  * App ID for the skill
  */
-var APP_ID = undefined; //replace with "amzn1.echo-sdk-ams.app.[your-unique-value-here]";
+var APP_ID = "change"; //replace with "amzn1.echo-sdk-ams.app.[your-unique-value-here]";
 
 /**
  * The AlexaSkill prototype and helper functions
  */
-var AlexaSkill = require('./AlexaSkill');
+// var AlexaSkill = require('./AlexaSkill');
 
 /**
  * MeanAlexa is a child of AlexaSkill.

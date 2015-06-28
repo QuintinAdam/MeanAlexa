@@ -1,6 +1,12 @@
+MeanAlexaIntent to insult {cody|PersonName}
 MeanAlexaIntent insult {cody|PersonName}
+NiceAlexaIntent to motivate {cody|PersonName}
 NiceAlexaIntent motivate {cody|PersonName}
 
+HelpIntent for help
+HelpIntent to help
 HelpIntent help
+HelpIntent for help me
+HelpIntent to help me
 HelpIntent help me
 HelpIntent wat
