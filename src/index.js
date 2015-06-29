@@ -1,33 +1,29 @@
-// When adding to lambda add both the code in alexSkill and this file. comment out lines var AlexSkill = require, and module.import = AlexSkill
-// Alexa SDK for JavaScript v1.0.00
-// Copyright (c) 2014-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved. Use is subject to license terms.
+var getInsult = function(insult) {
+  var http = require("http");
+  var url = "http://pleaseinsult.me/api?severity=random";
+  var request = http.get(url, function (response) {
+      var buffer = "",
+          data;
 
-/**
- * This simple sample has no external dependencies or session management, and shows the most basic
- * example of how to create a Lambda function for handling Alexa Skill requests.
- *
- * Examples:
- * One-shot model:
- *  User: "Alexa, tell Greeter to say hello"
- *  Alexa: "Hello World!"
- */
+      response.on("data", function (chunk) {
+          buffer += chunk;
+      });
+
+      response.on("end", function (err) {
+
+          data = JSON.parse(buffer);
+          insult(data);
+      });
+
+  });
+};
 
 /**
  * App ID for the skill
  */
-var APP_ID = "change"; //replace with "amzn1.echo-sdk-ams.app.[your-unique-value-here]";
+var APP_ID = "changeme"; //replace with "amzn1.echo-sdk-ams.app.[your-unique-value-here]";
 
-/**
- * The AlexaSkill prototype and helper functions
- */
-// var AlexaSkill = require('./AlexaSkill');
 
-/**
- * MeanAlexa is a child of AlexaSkill.
- * To read more about inheritance in JavaScript, see the link below.
- *
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Introduction_to_Object-Oriented_JavaScript#Inheritance
- */
 var MeanAlexa = function () {
     AlexaSkill.call(this, APP_ID);
 };
@@ -37,8 +33,7 @@ MeanAlexa.prototype = Object.create(AlexaSkill.prototype);
 MeanAlexa.prototype.constructor = MeanAlexa;
 
 MeanAlexa.prototype.eventHandlers.onSessionStarted = function (sessionStartedRequest, session) {
-    console.log("MeanAlexa onSessionStarted requestId: " + sessionStartedRequest.requestId
-        + ", sessionId: " + session.sessionId);
+    console.log("MeanAlexa onSessionStarted requestId: " + sessionStartedRequest.requestId + ", sessionId: " + session.sessionId);
     // any initialization logic goes here
 };
 
@@ -49,8 +44,7 @@ MeanAlexa.prototype.eventHandlers.onLaunch = function (launchRequest, session, r
 };
 
 MeanAlexa.prototype.eventHandlers.onSessionEnded = function (sessionEndedRequest, session) {
-    console.log("MeanAlexa onSessionEnded requestId: " + sessionEndedRequest.requestId
-        + ", sessionId: " + session.sessionId);
+    console.log("MeanAlexa onSessionEnded requestId: " + sessionEndedRequest.requestId + ", sessionId: " + session.sessionId);
     // any cleanup logic goes here
 };
 
@@ -59,15 +53,21 @@ MeanAlexa.prototype.intentHandlers = {
     MeanAlexaIntent: function (intent, session, response) {
         var personName = intent.slots.PersonName.value.toLowerCase();
         var cardTitle = "Insult for " + personName;
-        var insult = "A fish has more brains than you.";
+        var http = require("https");
+        var insult = '';
+        getInsult(function(insult) {
+          // use the return value here instead of like a regular (non-evented) return value
+          console.log(insult.insult);
+          insult = insult.insult;
+          if (insult) {
+            var insultWithName = personName + ", " + insult;
+            response.tellWithCard(insultWithName, cardTitle, insultWithName);
+          } else {
+            response.ask("I'm sorry, " + personName +  " is not worth insulting. What else can I help?");
+          }
+        });
+        // var insult = "A fish has more brains than you.";
         // var insult = getInsult;
-
-        if (insult) {
-          var insultWithName = personName + ", " + insult
-          response.tellWithCard(insultWithName, cardTitle, insultWithName);
-        } else {
-          response.ask("I'm sorry, " + personName +  " is not worth insulting What else can I help?");
-        }
     },
     NiceAlexaIntent: function (intent, session, response) {
         var personName = intent.slots.PersonName.value.toLowerCase();
@@ -76,10 +76,10 @@ MeanAlexa.prototype.intentHandlers = {
         // var motivate = getMotivation;
 
         if (motivate) {
-          var motivateWithName = personName + ", " + motivate
+          var motivateWithName = personName + ", " + motivate;
           response.tellWithCard(motivateWithName, cardTitle, motivateWithName);
         } else {
-          response.ask("I'm sorry, " + personName +  " is not worth motivating What else can I help?");
+          response.ask("I'm sorry, " + personName +  " is not worth motivating. What else can I help?");
         }
     },
     HelpIntent: function (intent, session, response) {
